@@ -5,13 +5,18 @@ import { getLanguage, pick } from "@/lib/language";
 import { Target, Eye, Heart, Shield, Users, Award, Quote } from "lucide-react";
 
 async function getData() {
-  const [settings, aboutContent, directorMsg, team] = await Promise.all([
-    prisma.settings.findFirst(),
-    prisma.aboutPageContent.findFirst(),
-    prisma.directorMessage.findFirst({ where: { isActive: true } }),
-    prisma.teamMember.findMany({ orderBy: { order: "asc" }, where: { isActive: true } }),
-  ]);
-  return { settings, aboutContent, directorMsg, team };
+  try {
+    const [settings, aboutContent, directorMsg, team] = await Promise.all([
+      prisma.settings.findFirst(),
+      prisma.aboutPageContent.findFirst(),
+      prisma.directorMessage.findFirst({ where: { isActive: true } }),
+      prisma.teamMember.findMany({ orderBy: { order: "asc" }, where: { isActive: true } }),
+    ]);
+    return { settings, aboutContent, directorMsg, team };
+  } catch (error) {
+    console.error("Failed to fetch about page data:", error);
+    return { settings: null, aboutContent: null, directorMsg: null, team: [] };
+  }
 }
 
 export default async function AboutPage() {

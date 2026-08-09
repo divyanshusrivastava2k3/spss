@@ -11,9 +11,14 @@ export default async function ProgramDetailsPage({ params }: { params: Promise<{
   const lang = await getLanguage();
   const t = (en: string | null | undefined, hi: string | null | undefined, fb = "") => pick(lang, en, hi, fb);
   
-  const program = await prisma.program.findUnique({
-    where: { id: resolvedParams.id }
-  });
+  let program = null;
+  try {
+    program = await prisma.program.findUnique({
+      where: { id: resolvedParams.id }
+    });
+  } catch (error) {
+    console.error("Failed to fetch program:", error);
+  }
 
   if (!program || !program.isActive) {
     notFound();

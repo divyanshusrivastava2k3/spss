@@ -83,7 +83,12 @@ export default async function RootLayout({
   let youtubeUrl = "";
   let linkedinUrl = "";
 
-  const settings = await getSettings();
+  let settings = null;
+  try {
+    settings = await getSettings();
+  } catch (error) {
+    console.error("Failed to load settings from database:", error);
+  }
   if (settings) {
     primary = settings.primaryColor || primary;
     secondary = settings.secondaryColor || secondary;

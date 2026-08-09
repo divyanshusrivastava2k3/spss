@@ -7,7 +7,12 @@ import Link from "next/link";
 import { BookOpen, Calendar, User, ArrowRight, ArrowLeft } from "lucide-react";
 
 async function getPosts() {
-  return await prisma.blogPost.findMany({ where: { isPublished: true }, orderBy: { publishedAt: "desc" } });
+  try {
+    return await prisma.blogPost.findMany({ where: { isPublished: true }, orderBy: { publishedAt: "desc" } });
+  } catch (error) {
+    console.error("Failed to fetch blog posts:", error);
+    return [];
+  }
 }
 
 export default async function BlogPage() {

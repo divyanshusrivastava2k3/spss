@@ -11,14 +11,19 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import "./globals.css";
 
 async function getData() {
-  const [settings, partners, programs, posts, homeContent] = await Promise.all([
-    prisma.settings.findFirst(),
-    prisma.partner.findMany({ take: 8, orderBy: { order: "asc" }, where: { isActive: true } }),
-    prisma.program.findMany({ take: 3, orderBy: { startDate: "asc" }, where: { isActive: true } }),
-    prisma.blogPost.findMany({ take: 3, orderBy: { publishedAt: "desc" }, where: { isPublished: true } }),
-    prisma.homePageContent.findFirst(),
-  ]);
-  return { settings, partners, programs, posts, homeContent };
+  try {
+    const [settings, partners, programs, posts, homeContent] = await Promise.all([
+      prisma.settings.findFirst(),
+      prisma.partner.findMany({ take: 8, orderBy: { order: "asc" }, where: { isActive: true } }),
+      prisma.program.findMany({ take: 3, orderBy: { startDate: "asc" }, where: { isActive: true } }),
+      prisma.blogPost.findMany({ take: 3, orderBy: { publishedAt: "desc" }, where: { isPublished: true } }),
+      prisma.homePageContent.findFirst(),
+    ]);
+    return { settings, partners, programs, posts, homeContent };
+  } catch (error) {
+    console.error("Failed to fetch home page data:", error);
+    return { settings: null, partners: [], programs: [], posts: [], homeContent: null };
+  }
 }
 
 export default async function Home() {

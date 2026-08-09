@@ -6,7 +6,12 @@ import { GraduationCap, Leaf } from "lucide-react";
 import Link from "next/link";
 
 async function getPrograms() {
-  return await prisma.program.findMany({ orderBy: { startDate: "asc" }, where: { isActive: true } });
+  try {
+    return await prisma.program.findMany({ orderBy: { startDate: "asc" }, where: { isActive: true } });
+  } catch (error) {
+    console.error("Failed to fetch programs:", error);
+    return [];
+  }
 }
 
 export default async function ProgramsPage() {

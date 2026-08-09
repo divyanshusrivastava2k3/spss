@@ -6,7 +6,12 @@ import { translations } from "@/lib/translations";
 import GalleryGrid from "./GalleryGrid";
 
 async function getGallery() {
-  return await prisma.galleryImage.findMany({ orderBy: { createdAt: "desc" }, where: { isActive: true } });
+  try {
+    return await prisma.galleryImage.findMany({ orderBy: { createdAt: "desc" }, where: { isActive: true } });
+  } catch (error) {
+    console.error("Failed to fetch gallery images:", error);
+    return [];
+  }
 }
 
 export default async function GalleryPage() {

@@ -8,29 +8,34 @@ import { notFound } from "next/navigation";
 import { Calendar, User, Clock, Tag, ArrowLeft, Share2 } from "lucide-react";
 
 async function getPost(slug: string) {
-  const post = await prisma.blogPost.findUnique({
-    where: { slug },
-  });
+  try {
+    const post = await prisma.blogPost.findUnique({
+      where: { slug },
+    });
 
-  if (!post || !post.isPublished) return null;
+    if (!post || !post.isPublished) return null;
 
-  // Increment view count
-  await prisma.blogPost.update({
-    where: { id: post.id },
-    data: { views: { increment: 1 } },
-  });
+    // Increment view count
+    await prisma.blogPost.update({
+      where: { id: post.id },
+      data: { views: { increment: 1 } },
+    });
 
-  const relatedPosts = await prisma.blogPost.findMany({
-    where: {
-      isPublished: true,
-      id: { not: post.id },
-      ...(post.category ? { category: post.category } : {}),
-    },
-    take: 3,
-    orderBy: { publishedAt: "desc" },
-  });
+    const relatedPosts = await prisma.blogPost.findMany({
+      where: {
+        isPublished: true,
+        id: { not: post.id },
+        ...(post.category ? { category: post.category } : {}),
+      },
+      take: 3,
+      orderBy: { publishedAt: "desc" },
+    });
 
-  return { post, relatedPosts };
+    return { post, relatedPosts };
+  } catch (error) {
+    console.error("Failed to fetch blog post:", error);
+    return null;
+  }
 }
 
 export default async function BlogDetailPage({

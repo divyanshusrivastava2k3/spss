@@ -6,7 +6,12 @@ import { translations } from "@/lib/translations";
 import { Users, ExternalLink, Leaf } from "lucide-react";
 
 async function getPartners() {
-  return await prisma.partner.findMany({ orderBy: [{ category: "asc" }, { order: "asc" }], where: { isActive: true } });
+  try {
+    return await prisma.partner.findMany({ orderBy: [{ category: "asc" }, { order: "asc" }], where: { isActive: true } });
+  } catch (error) {
+    console.error("Failed to fetch partners:", error);
+    return [];
+  }
 }
 
 const categoryLabels: Record<string, { en: string; hi: string }> = {

@@ -7,7 +7,12 @@ import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import ContactForm from "./ContactForm";
 
 async function getData() {
-  return await prisma.settings.findFirst();
+  try {
+    return await prisma.settings.findFirst();
+  } catch (error) {
+    console.error("Failed to fetch contact page settings:", error);
+    return null;
+  }
 }
 
 export default async function ContactPage() {
