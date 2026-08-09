@@ -61,7 +61,7 @@ export default async function BlogPage() {
       )}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {rest.length > 0 ? (
+          {rest.length > 0 && (
             <div className="columns-1 md:columns-2 lg:columns-3 gap-8">
               {rest.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="break-inside-avoid inline-block w-full mb-8 group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-green-100">
@@ -80,7 +80,8 @@ export default async function BlogPage() {
                 </Link>
               ))}
             </div>
-          ) : (
+          )}
+          {posts.length === 0 && (
             <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-green-200">
               <BookOpen className="w-12 h-12 text-green-300 mx-auto mb-4" />
               <p className="text-gray-600 text-lg">{t("blog.none")}</p>
