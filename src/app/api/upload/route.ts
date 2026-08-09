@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
 import crypto from "crypto";
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { logger } from "@/lib/logger";
+import { createClient } from "@supabase/supabase-js";
 
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/x-icon"];
 const MAX_UPLOAD_SIZE = parseInt(process.env.UPLOAD_MAX_SIZE || "5242880", 10);
+
+// Initialize Supabase Client
+const supabaseUrl = process.env.SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +19,11 @@ export async function POST(req: Request) {
     if (!session) {
       logger.warn("Unauthorized upload attempt");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (!supabaseUrl || !supabaseKey) {
+      logger.error("Supabase credentials not configured");
+      return NextResponse.json({ error: "Storage not configured on server." }, { status: 500 });
     }
 
     const formData = await req.formData();
@@ -38,26 +46,33 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Sanitize filename and use crypto.randomUUID for security against path traversal
+    // Sanitize filename and use crypto.randomUUID
     const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
     const ext = originalName.split(".").pop();
     const fileName = `${Date.now()}-${crypto.randomUUID()}.${ext}`;
-    const uploadDir = join(process.cwd(), "public", "uploads");
-    const filePath = join(uploadDir, fileName);
 
-    // Ensure directory exists
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (e) {
-      // Ignore if exists
+    // Upload to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from("uploads")
+      .upload(fileName, buffer, {
+        contentType: file.type,
+        upsert: false,
+      });
+
+    if (error) {
+      logger.error("Supabase storage upload error:", error);
+      return NextResponse.json({ error: "Failed to upload to cloud storage." }, { status: 500 });
     }
 
-    await writeFile(filePath, buffer);
+    // Get the public URL
+    const { data: publicUrlData } = supabase.storage
+      .from("uploads")
+      .getPublicUrl(fileName);
 
-    logger.info(`File uploaded successfully: ${fileName}`);
+    logger.info(`File uploaded successfully to Supabase: ${fileName}`);
 
     return NextResponse.json({
-      url: `/uploads/${fileName}`,
+      url: publicUrlData.publicUrl,
       filename: fileName,
       size: file.size,
       mimeType: file.type,
