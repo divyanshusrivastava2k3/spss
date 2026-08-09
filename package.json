@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma db push && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "prisma db push && prisma db seed && next build",
+    "lint": "eslint",
     "postbuild": "next-sitemap",
     "test": "vitest",
     "test:run": "vitest run",
