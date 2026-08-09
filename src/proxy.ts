@@ -5,13 +5,13 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect /admin routes, but allow /admin/login
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+  // Protect /manage routes, but allow /manage/login
+  if (pathname.startsWith("/manage") && pathname !== "/manage/login") {
     // With the new proxy pattern running in Node.js, we can use getServerSession directly
     const session = await getServerSession(authOptions);
     
     if (!session) {
-      const loginUrl = new URL("/admin/login", request.url);
+      const loginUrl = new URL("/manage/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
   }

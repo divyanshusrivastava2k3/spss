@@ -112,7 +112,7 @@ class ApiClient {
           } catch {
             // Session refresh failed, redirect to login
             if (typeof window !== 'undefined') {
-              signOut({ callbackUrl: '/admin/login' });
+              signOut({ callbackUrl: '/manage/login' });
             }
           }
         }
