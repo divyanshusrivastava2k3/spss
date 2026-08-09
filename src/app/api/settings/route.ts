@@ -4,6 +4,8 @@ import { createApiHandler } from "@/lib/api-handler";
 import { SettingsSchema } from "@/lib/validators";
 import { logger } from "@/lib/logger";
 
+import { revalidatePath } from "next/cache";
+
 export async function GET() {
   try {
     const settings = await prisma.settings.findFirst();
@@ -28,6 +30,8 @@ export const POST = createApiHandler(async (req, data) => {
       data,
     });
   }
+
+  revalidatePath("/", "layout");
 
   return NextResponse.json(updatedSettings);
 }, { schema: SettingsSchema, requireAuth: true });
