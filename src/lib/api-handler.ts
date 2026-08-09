@@ -71,7 +71,19 @@ export function createApiHandler<T>(
     }
 
     try {
-      return await handler(req, parsedData as T, session, params as Record<string, string>);
+      const response = await handler(req, parsedData as T, session, params as Record<string, string>);
+      
+      // Auto-revalidate cache on successful mutations
+      if (
+        response.status >= 200 && 
+        response.status < 300 && 
+        ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)
+      ) {
+        const { revalidatePath } = require("next/cache");
+        revalidatePath("/", "layout");
+      }
+      
+      return response;
     } catch (error: any) {
       logger.error(`API Error in ${req.url}:`, error);
 

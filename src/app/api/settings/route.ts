@@ -31,7 +31,5 @@ export const POST = createApiHandler(async (req, data) => {
     });
   }
 
-  revalidatePath("/", "layout");
-
   return NextResponse.json(updatedSettings);
 }, { schema: SettingsSchema, requireAuth: true });
