@@ -1,0 +1,268 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String?  @unique
+  password  String
+  role      String   @default("admin")
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Settings {
+  id            String @id @default(cuid())
+  ngoName       String @default("Sardar Patel Shikshan Sansthan")
+  ngoNameHi     String @default("सरदार पटेल शिक्षण संस्थान")
+  logoUrl       String @default("")
+  faviconUrl    String @default("")
+  primaryColor  String @default("#166534")
+  secondaryColor String @default("#15803d")
+  accentColor   String @default("#16a34a")
+  aboutText     String @default("We are a non-profit organization dedicated to helping those in need.")
+  aboutTextHi   String @default("हम जरूरतमंदों की मदद के लिए समर्पित एक गैर-लाभकारी संगठन हैं।")
+  contactEmail  String @default("contact@spss.org")
+  contactPhone  String @default("+91 532 454 1842")
+  address       String @default("Village Kaserua Kala, Azad Nagar, Tehsil Phulpur, Prayagraj, Uttar Pradesh")
+  addressHi     String @default("ग्राम कसेरुआ कला, आजाद नगर, तहसील फूलपुर, प्रयागराज, उत्तर प्रदेश")
+  metaTitle     String @default("SPSS - RuralGro")
+  metaTitleHi   String @default("एसपीएसएस - रूरलग्रो")
+  metaDescription String @default("Empowering rural communities through education, skill development, and sustainable livelihoods.")
+  metaDescriptionHi String @default("शिक्षा, कौशल विकास और स्थायी आजीविका के माध्यम से ग्रामीण समुदायों को सशक्त बनाना।")
+  facebookUrl   String @default("https://www.facebook.com/profile.php?id=100004343019139")
+  twitterUrl    String @default("https://x.com/ruralgro")
+  instagramUrl  String @default("https://www.instagram.com/_ruralgro__official_/")
+  youtubeUrl    String @default("")
+  linkedinUrl   String @default("")
+}
+
+model ContentBlock {
+  id        String @id @default(cuid())
+  key       String @unique
+  section   String
+  englishContent String
+  hindiContent   String
+  type      String @default("text")
+  isActive  Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Partner {
+  id          String @id @default(cuid())
+  name        String
+  nameHi      String?
+  logoUrl     String
+  websiteUrl  String?
+  description String?
+  descriptionHi String?
+  category    String @default("general")
+  order       Int    @default(0)
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([order])
+  @@index([isActive])
+}
+
+model BlogPost {
+  id          String @id @default(cuid())
+  title       String
+  titleHi     String?
+  slug        String @unique
+  excerpt     String
+  excerptHi   String?
+  content     String
+  contentHi   String?
+  featuredImage String?
+  author      String
+  authorHi    String?
+  publishedAt DateTime?
+  isPublished Boolean @default(false)
+  tags        String    @default("")
+  category    String?
+  categoryHi  String?
+  language    String @default("en")
+  views       Int    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([slug])
+  @@index([isPublished])
+  @@index([publishedAt])
+}
+
+model TeamMember {
+  id          String @id @default(cuid())
+  name        String
+  nameHi      String?
+  designation String
+  designationHi String?
+  bio         String?
+  bioHi       String?
+  photoUrl    String?
+  email       String?
+  phone       String?
+  linkedinUrl String?
+  twitterUrl  String?
+  facebookUrl String?
+  order       Int    @default(0)
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([order])
+  @@index([isActive])
+}
+
+model DirectorMessage {
+  id            String @id @default(cuid())
+  directorName  String
+  directorNameHi String?
+  directorTitle String
+  directorTitleHi String?
+  message       String
+  messageHi     String
+  photoUrl      String?
+  signatureUrl  String?
+  isActive      Boolean @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model HomePageContent {
+  id              String @id @default(cuid())
+  heroTitle       String
+  heroTitleHi     String
+  heroSubtitle    String
+  heroSubtitleHi  String
+  heroCtaText     String
+  heroCtaTextHi   String
+  heroCtaLink     String @default("/contact")
+  heroBackgroundImage String?
+  heroImage1      String?
+  heroImage2      String?
+  heroImage3      String?
+  ctaBackgroundImage String?
+  statsLabel1     String @default("People Helped")
+  statsLabel1Hi   String @default("लोगों की मदद की")
+  statsValue1     String @default("5,000+")
+  statsLabel2     String @default("Trainings Conducted")
+  statsLabel2Hi   String @default("प्रशिक्षण आयोजित")
+  statsValue2     String @default("200+")
+  statsLabel3     String @default("Years of Service")
+  statsLabel3Hi   String @default("वर्षों की सेवा")
+  statsValue3     String @default("35+")
+  statsLabel4     String @default("Volunteers")
+  statsLabel4Hi   String @default("स्वयंसेवक")
+  statsValue4     String @default("150+")
+  aboutSnippet    String?
+  aboutSnippetHi  String?
+  ctaTitle        String @default("Join Us in Making a Difference")
+  ctaTitleHi      String @default("बदलाव लाने में हमारा साथ दें")
+  ctaSubtitle     String @default("Your support can help us empower more lives.")
+  ctaSubtitleHi   String @default("आपका सहयोग हमें और अधिक जिंदगियों को सशक्त बनाने में मदद कर सकता है।")
+  ctaPrimaryText  String @default("Contact Us")
+  ctaPrimaryTextHi String @default("संपर्क करें")
+  ctaSecondaryText String @default("Our Programs")
+  ctaSecondaryTextHi String @default("हमारे कार्यक्रम")
+  aboutImage      String?
+  ctaCard1Title   String @default("Support Our Work")
+  ctaCard1TitleHi String @default("हमारे काम का समर्थन करें")
+  ctaCard1Desc    String @default("Your donation empowers lives.")
+  ctaCard1DescHi  String @default("आपका दान जीवन को सशक्त बनाता है।")
+  ctaCard1Image   String?
+  ctaCard2Title   String @default("Volunteer With Us")
+  ctaCard2TitleHi String @default("हमारे साथ स्वयंसेवा करें")
+  ctaCard2Desc    String @default("Contribute your time and skills.")
+  ctaCard2DescHi  String @default("अपना समय और कौशल दें।")
+  ctaCard2Image   String?
+  ctaCard3Title   String @default("Become a Partner")
+  ctaCard3TitleHi String @default("साझेदार बनें")
+  ctaCard3Desc    String @default("Collaborate for rural development.")
+  ctaCard3DescHi  String @default("ग्रामीण विकास के लिए सहयोग करें।")
+  ctaCard3Image   String?
+  ctaCardLink     String @default("/contact")
+  isActive        Boolean @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AboutPageContent {
+  id              String @id @default(cuid())
+  missionTitle    String @default("Our Mission")
+  missionTitleHi  String @default("हमारा मिशन")
+  missionContent  String
+  missionContentHi String
+  visionTitle     String @default("Our Vision")
+  visionTitleHi   String @default("हमारा दृष्टिकोण")
+  visionContent   String
+  visionContentHi String
+  historyTitle    String @default("Our Journey")
+  historyTitleHi  String @default("हमारी यात्रा")
+  historyContent  String
+  historyContentHi String
+  valuesTitle     String @default("Core Values")
+  valuesTitleHi   String @default("मूल मूल्य")
+  directorMessageTitle String @default("Message from Director")
+  directorMessageTitleHi String @default("निदेशक का संदेश")
+  teamTitle       String @default("Our Team")
+  teamTitleHi     String @default("हमारी टीम")
+  isActive        Boolean @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Program {
+  id          String @id @default(cuid())
+  title       String
+  titleHi     String?
+  description String
+  descriptionHi String?
+  imageUrl    String?
+  category    String?
+  categoryHi  String?
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean @default(true)
+  order       Int @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([order])
+  @@index([isActive])
+}
+
+model GalleryImage {
+  id          String @id @default(cuid())
+  title       String
+  titleHi     String?
+  imageUrl    String
+  category    String?
+  categoryHi  String?
+  description String?
+  descriptionHi String?
+  order       Int @default(0)
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([order])
+  @@index([isActive])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
