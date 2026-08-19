@@ -10,6 +10,7 @@ export async function GET() {
       update: {},
       create: {
         email: "admin@spss.org",
+        username: "admin",
         password: hashedPassword,
       },
     });
