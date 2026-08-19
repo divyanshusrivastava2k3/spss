@@ -101,25 +101,30 @@ export default async function AboutPage() {
               <h2 className="text-3xl md:text-4xl font-extrabold mt-3 text-gray-900">{t(aboutContent?.directorMessageTitle || "Message from Director", aboutContent?.directorMessageTitleHi)}</h2>
             </div>
             <div className="bg-green-50/50 rounded-3xl border border-green-100 overflow-hidden shadow-sm">
-              <div className="grid lg:grid-cols-5 gap-0">
-                <div className="lg:col-span-2 flex items-center justify-center p-10" style={{ background: "linear-gradient(135deg, var(--primary-20), var(--secondary-25))" }}>
-                  <div className="text-center">
-                    <div className="w-44 h-44 rounded-full mx-auto overflow-hidden bg-white border-4 border-white shadow-xl mb-5 flex items-center justify-center">
-                      {directorMsg.photoUrl ? (
-                        <img src={directorMsg.photoUrl} alt={directorMsg.directorName} className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="text-5xl font-bold text-green-700">{directorMsg.directorName?.charAt(0)}</span>
-                      )}
+              <div className="grid lg:grid-cols-5 gap-8 lg:gap-0 bg-white">
+                {/* Message Section - Left side */}
+                <div className="lg:col-span-3 p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
+                  <div>
+                    <Quote className="w-12 h-12 text-green-200 mb-6" />
+                    <p className="text-gray-800 text-xl lg:text-2xl leading-relaxed italic font-medium">&ldquo;{t(directorMsg.message, directorMsg.messageHi)}&rdquo;</p>
+                    <div className="mt-8 border-t border-gray-100 pt-6">
+                      <h3 className="text-2xl font-extrabold text-gray-900">{t(directorMsg.directorName, directorMsg.directorNameHi)}</h3>
+                      <p className="text-lg font-semibold text-green-700 mt-1">{t(directorMsg.directorTitle, directorMsg.directorTitleHi)}</p>
                     </div>
-                    <h3 className="text-xl font-extrabold text-gray-900">{t(directorMsg.directorName, directorMsg.directorNameHi)}</h3>
-                    <p className="text-sm font-medium text-green-700 mt-1">{t(directorMsg.directorTitle, directorMsg.directorTitleHi)}</p>
                   </div>
                 </div>
-                <div className="lg:col-span-3 p-10 flex items-center">
-                  <div>
-                    <Quote className="w-10 h-10 text-green-300 mb-4" />
-                    <p className="text-gray-800 text-lg leading-relaxed italic">&ldquo;{t(directorMsg.message, directorMsg.messageHi)}&rdquo;</p>
-                    <p className="mt-6 text-gray-500 text-sm font-medium">{t(directorMsg.directorName, directorMsg.directorNameHi)}</p>
+                
+                {/* Photo Section - Right side */}
+                <div className="lg:col-span-2 flex items-center justify-center p-8 lg:p-12 order-1 lg:order-2 bg-gray-50/50">
+                  <div className="w-full max-w-[320px] aspect-square rounded-3xl overflow-hidden bg-white shadow-2xl relative group">
+                    <div className="absolute inset-0 bg-green-900/10 group-hover:bg-transparent transition duration-500 z-10" />
+                    {directorMsg.photoUrl ? (
+                      <img src={directorMsg.photoUrl} alt={directorMsg.directorName} className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-green-50">
+                        <span className="text-8xl font-bold text-green-700">{directorMsg.directorName?.charAt(0)}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

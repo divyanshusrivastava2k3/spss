@@ -26,17 +26,20 @@ export const MobileSidebar = () => {
 
       {isOpen && mounted && createPortal(
         <div className="md:hidden fixed inset-0 z-[100] flex">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
-          <div className="relative w-72 max-w-[80%] bg-white h-full shadow-2xl flex-col flex overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          <div className="relative w-[280px] max-w-[80%] bg-white h-full shadow-2xl flex-col flex overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <Sidebar />
+          </div>
+          {/* Close button outside the sidebar */}
+          <div className="relative flex-1 p-4 flex justify-end items-start" onClick={() => setIsOpen(false)}>
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-colors"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <Sidebar />
           </div>
         </div>,
         document.body
