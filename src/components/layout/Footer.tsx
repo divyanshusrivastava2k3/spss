@@ -91,6 +91,7 @@ export const Footer = () => {
               <li><Link href="/blog" className="hover:text-white transition flex items-center gap-2"><ExternalLink className="w-3 h-3" /> {t("nav.blog")}</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition flex items-center gap-2"><ExternalLink className="w-3 h-3" /> {t("nav.gallery")}</Link></li>
               <li><Link href="/contact" className="hover:text-white transition flex items-center gap-2"><ExternalLink className="w-3 h-3" /> {t("nav.contact")}</Link></li>
+              <li><Link href="/donate" className="hover:text-white transition flex items-center gap-2"><ExternalLink className="w-3 h-3" /> {t("common.donate")}</Link></li>
             </ul>
           </div>
 

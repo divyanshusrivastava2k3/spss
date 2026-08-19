@@ -80,6 +80,13 @@ export const Navbar = () => {
           <div className="flex items-center gap-2">
             <LanguageToggle />
             <Link
+              href="/donate"
+              className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-[var(--primary-fg)] shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              style={{ backgroundColor: "var(--accent, #e11d48)" }}
+            >
+              <Heart className="w-4 h-4" /> {t("common.donate")}
+            </Link>
+            <Link
               href="/contact"
               className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-[var(--primary-fg)] shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
               style={{ backgroundColor: "var(--primary)" }}

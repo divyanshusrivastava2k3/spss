@@ -43,6 +43,16 @@ model Settings {
   instagramUrl  String @default("https://www.instagram.com/_ruralgro__official_/")
   youtubeUrl    String @default("")
   linkedinUrl   String @default("")
+  donationTitle       String @default("Support Our Cause")
+  donationTitleHi     String @default("हमारे काम का समर्थन करें")
+  donationDescription String @default("Your donation helps us empower rural communities and provide education and skills to those in need.")
+  donationDescriptionHi String @default("आपका दान हमें ग्रामीण समुदायों को सशक्त बनाने और जरूरतमंदों को शिक्षा और कौशल प्रदान करने में मदद करता है।")
+  donationQrCodeUrl   String @default("")
+  upiId               String @default("")
+  bankAccountName     String @default("")
+  bankAccountNumber   String @default("")
+  bankIfscCode        String @default("")
+  bankName            String @default("")
 }
 
 model ContentBlock {

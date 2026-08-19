@@ -277,6 +277,80 @@ export const SettingsForm = () => {
         </div>
       </div>
 
+      {/* Donation & Bank Settings */}
+      <div className={sectionCls}>
+        <h3 className="text-xl font-bold text-gray-900 border-b border-green-100 pb-3">💳 Donation & Bank Details</h3>
+        
+        <div>
+          <label className={labelCls}>Donation Title (English)</label>
+          <input type="text" name="donationTitle" value={formData.donationTitle || ""} onChange={handleChange} className={inputCls} placeholder="e.g. Support Our Cause" />
+        </div>
+        <div>
+          <label className={labelCls}>दान शीर्षक (हिंदी)</label>
+          <input type="text" name="donationTitleHi" value={formData.donationTitleHi || ""} onChange={handleChange} className={inputCls} placeholder="e.g. हमारे काम का समर्थन करें" />
+        </div>
+        
+        <div>
+          <label className={labelCls}>Donation Description (English)</label>
+          <textarea name="donationDescription" value={formData.donationDescription || ""} onChange={handleChange} rows={3} className={inputCls + " resize-y"} placeholder="Why should people donate?" />
+        </div>
+        <div>
+          <label className={labelCls}>दान विवरण (हिंदी)</label>
+          <textarea name="donationDescriptionHi" value={formData.donationDescriptionHi || ""} onChange={handleChange} rows={3} className={inputCls + " resize-y"} placeholder="लोग दान क्यों करें?" />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          <div>
+            <label className={labelCls}>Bank Account Name</label>
+            <input type="text" name="bankAccountName" value={formData.bankAccountName || ""} onChange={handleChange} className={inputCls} placeholder="Account Holder Name" />
+          </div>
+          <div>
+            <label className={labelCls}>Bank Account Number</label>
+            <input type="text" name="bankAccountNumber" value={formData.bankAccountNumber || ""} onChange={handleChange} className={inputCls} placeholder="Account Number" />
+          </div>
+          <div>
+            <label className={labelCls}>IFSC Code</label>
+            <input type="text" name="bankIfscCode" value={formData.bankIfscCode || ""} onChange={handleChange} className={inputCls} placeholder="IFSC Code" />
+          </div>
+          <div>
+            <label className={labelCls}>Bank Name</label>
+            <input type="text" name="bankName" value={formData.bankName || ""} onChange={handleChange} className={inputCls} placeholder="e.g. State Bank of India" />
+          </div>
+          <div>
+            <label className={labelCls}>UPI ID</label>
+            <input type="text" name="upiId" value={formData.upiId || ""} onChange={handleChange} className={inputCls} placeholder="e.g. ngo@sbi" />
+          </div>
+        </div>
+
+        {/* QR Code Upload */}
+        <div className="pt-4">
+          <label className={labelCls}>Payment QR Code Image</label>
+          <div className="flex items-center gap-4">
+            <div className="w-32 h-32 rounded-xl border-2 border-dashed border-green-200 flex items-center justify-center overflow-hidden bg-green-50">
+              {formData.donationQrCodeUrl ? (<img src={formData.donationQrCodeUrl} alt="QR Code" className="w-full h-full object-contain" />)
+                : (<ImageUp className="w-8 h-8 text-green-400" />)}
+            </div>
+            <div className="flex-1">
+              <input type="file" id="qrUpload" accept="image/*" className="hidden"
+                onChange={(e) => handleFileUpload(e.target.files?.[0] || null, "donationQrCodeUrl" as any)} />
+              <div className="flex gap-2">
+                <button type="button" onClick={() => document.getElementById('qrUpload')?.click()} disabled={uploading.donationQrCodeUrl as any}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-green-200 text-gray-700 text-sm font-medium hover:bg-green-50 transition disabled:opacity-50">
+                  <Upload className="w-4 h-4" />{(uploading as any).donationQrCodeUrl ? "Uploading..." : "Upload QR Code"}
+                </button>
+                {formData.donationQrCodeUrl && (
+                  <button type="button" onClick={() => setFormData((prev) => ({ ...prev, donationQrCodeUrl: "" }))}
+                    className="p-2 rounded-lg border border-red-300 text-red-600 hover:bg-red-50 transition">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">Recommended: Square clear image of the QR Code</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex justify-end pt-4 border-t border-green-100">
         <Button disabled={loading} type="submit" size="lg" className="px-10"
           style={{ background: "linear-gradient(135deg, #166534, #15803d)" }}>

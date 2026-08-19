@@ -23,6 +23,16 @@ export const SettingsSchema = z.object({
   instagramUrl: z.string().url().or(z.literal("")),
   youtubeUrl: z.string().url().or(z.literal("")),
   linkedinUrl: z.string().url().or(z.literal("")),
+  donationTitle: z.string(),
+  donationTitleHi: z.string(),
+  donationDescription: z.string(),
+  donationDescriptionHi: z.string(),
+  donationQrCodeUrl: z.string().or(z.literal("")),
+  upiId: z.string().or(z.literal("")),
+  bankAccountName: z.string().or(z.literal("")),
+  bankAccountNumber: z.string().or(z.literal("")),
+  bankIfscCode: z.string().or(z.literal("")),
+  bankName: z.string().or(z.literal("")),
 });
 
 export const ProgramSchema = z.object({
