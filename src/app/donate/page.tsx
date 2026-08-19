@@ -1,8 +1,8 @@
-import { Navbar } from @/components/layout/Navbar;
-import { Footer } from @/components/layout/Footer;
-import prisma from @/lib/prisma;
-import { getLanguage } from @/lib/language;
-import { translations } from @/lib/translations;
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import prisma from "@/lib/prisma";
+import { getLanguage } from "@/lib/language";
+import { translations } from "@/lib/translations";
 import { Heart, Building2, Smartphone, CreditCard } from "lucide-react";
 
 async function getSettings() {
