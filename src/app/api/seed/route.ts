@@ -11,7 +11,6 @@ export async function GET() {
       create: {
         email: "admin@spss.org",
         password: hashedPassword,
-        name: "SPSS Admin",
       },
     });
     return NextResponse.json({ success: true, message: "Admin seeded" });
