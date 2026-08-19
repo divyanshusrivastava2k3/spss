@@ -112,10 +112,10 @@ export const GalleryImageSchema = z.object({
 export const DirectorMessageSchema = z.object({
   directorName: z.string().min(1),
   directorNameHi: z.string().optional().nullable(),
-  directorTitle: z.string().min(1),
+  directorTitle: z.string().optional().nullable(),
   directorTitleHi: z.string().optional().nullable(),
   message: z.string().min(1),
-  messageHi: z.string().min(1),
+  messageHi: z.string().optional().nullable(),
   photoUrl: z.string().optional().nullable(),
   signatureUrl: z.string().optional().nullable(),
   isActive: z.boolean().default(true),
