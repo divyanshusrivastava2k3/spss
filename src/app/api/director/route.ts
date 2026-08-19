@@ -15,6 +15,16 @@ export async function GET() {
 }
 
 export const POST = createApiHandler(async (req, data) => {
-  const item = await prisma.directorMessage.create({ data });
+  const item = await prisma.directorMessage.create({ 
+    data: {
+      ...data,
+      directorTitle: data.directorTitle || "",
+      directorTitleHi: data.directorTitleHi || "",
+      directorNameHi: data.directorNameHi || "",
+      messageHi: data.messageHi || "",
+      photoUrl: data.photoUrl || "",
+      signatureUrl: data.signatureUrl || "",
+    } 
+  });
   return NextResponse.json(item);
 }, { schema: DirectorMessageSchema, requireAuth: true });

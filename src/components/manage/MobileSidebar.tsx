@@ -1,10 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Sidebar } from "./Sidebar";
 
 export const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -18,8 +24,8 @@ export const MobileSidebar = () => {
         </svg>
       </button>
 
-      {isOpen && (
-        <div className="md:hidden fixed inset-0 z-50 flex">
+      {isOpen && mounted && createPortal(
+        <div className="md:hidden fixed inset-0 z-[100] flex">
           <div className="fixed inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
           <div className="relative w-72 max-w-[80%] bg-white h-full shadow-2xl flex-col flex overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <button
@@ -32,7 +38,8 @@ export const MobileSidebar = () => {
             </button>
             <Sidebar />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

@@ -33,7 +33,17 @@ export async function PUT(
 
     const dm = await prisma.directorMessage.update({
       where: { id },
-      data: { directorName, directorNameHi, directorTitle, directorTitleHi, message, messageHi, photoUrl, signatureUrl, isActive },
+      data: { 
+        directorName, 
+        directorNameHi: directorNameHi || "", 
+        directorTitle: directorTitle || "", 
+        directorTitleHi: directorTitleHi || "", 
+        message, 
+        messageHi: messageHi || "", 
+        photoUrl: photoUrl || "", 
+        signatureUrl: signatureUrl || "", 
+        isActive 
+      },
     });
 
     return NextResponse.json(dm);
