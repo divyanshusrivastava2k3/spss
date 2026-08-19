@@ -103,10 +103,10 @@ export default async function AboutPage() {
             <div className="bg-green-50/50 rounded-3xl border border-green-100 overflow-hidden shadow-sm">
               <div className="grid lg:grid-cols-5 gap-8 lg:gap-0 bg-white">
                 {/* Message Section - Left side */}
-                <div className="lg:col-span-3 p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
+                <div className="lg:col-span-3 p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1 overflow-hidden">
                   <div>
                     <Quote className="w-12 h-12 text-green-200 mb-6" />
-                    <p className="text-gray-800 text-xl lg:text-2xl leading-relaxed italic font-medium">&ldquo;{t(directorMsg.message, directorMsg.messageHi)}&rdquo;</p>
+                    <p className="text-gray-800 text-xl lg:text-2xl leading-relaxed italic font-medium break-words">&ldquo;{t(directorMsg.message, directorMsg.messageHi)}&rdquo;</p>
                     <div className="mt-8 border-t border-gray-100 pt-6">
                       <h3 className="text-2xl font-extrabold text-gray-900">{t(directorMsg.directorName, directorMsg.directorNameHi)}</h3>
                       <p className="text-lg font-semibold text-green-700 mt-1">{t(directorMsg.directorTitle, directorMsg.directorTitleHi)}</p>
@@ -116,7 +116,7 @@ export default async function AboutPage() {
                 
                 {/* Photo Section - Right side */}
                 <div className="lg:col-span-2 flex items-center justify-center p-8 lg:p-12 order-1 lg:order-2 bg-gray-50/50">
-                  <div className="w-full max-w-[320px] aspect-square rounded-3xl overflow-hidden bg-white shadow-2xl relative group">
+                  <div className="w-full max-w-[320px] aspect-square rounded-full overflow-hidden bg-white shadow-2xl relative group border-4 border-white">
                     <div className="absolute inset-0 bg-green-900/10 group-hover:bg-transparent transition duration-500 z-10" />
                     {directorMsg.photoUrl ? (
                       <img src={directorMsg.photoUrl} alt={directorMsg.directorName} className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
