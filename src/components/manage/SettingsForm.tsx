@@ -34,6 +34,16 @@ export const SettingsForm = () => {
     instagramUrl: "",
     youtubeUrl: "",
     linkedinUrl: "",
+    donationTitle: "",
+    donationTitleHi: "",
+    donationDescription: "",
+    donationDescriptionHi: "",
+    donationQrCodeUrl: "",
+    upiId: "",
+    bankAccountName: "",
+    bankAccountNumber: "",
+    bankIfscCode: "",
+    bankName: "",
   });
 
   const logoRef = useRef<HTMLInputElement>(null);
