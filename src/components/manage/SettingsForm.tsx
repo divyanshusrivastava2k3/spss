@@ -10,7 +10,7 @@ import { ImageUp, Trash2, Upload } from "lucide-react";
 export const SettingsForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState({ logo: false, favicon: false });
+  const [uploading, setUploading] = useState({ logo: false, favicon: false, donationQrCodeUrl: false });
   const [formData, setFormData] = useState({
     ngoName: "",
     ngoNameHi: "",
