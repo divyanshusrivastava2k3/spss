@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/manage/Sidebar";
+import { MobileSidebar } from "@/components/manage/MobileSidebar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Leaf } from "lucide-react";
@@ -24,14 +25,7 @@ export default async function AdminDashboardLayout({
       </div>
 
       {/* Mobile sidebar toggle button */}
-      <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-xl bg-white shadow-lg border border-green-200"
-        aria-label="Open sidebar"
-      >
-        <svg className="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      <MobileSidebar />
 
       {/* Main Content */}
       <main className="md:pl-72 min-h-screen">

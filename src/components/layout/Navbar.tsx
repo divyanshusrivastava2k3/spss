@@ -50,7 +50,7 @@ export const Navbar = () => {
                 <Heart className="w-6 h-6" />
               </div>
             )}
-            <span className="font-bold text-base lg:text-lg leading-tight hidden sm:block truncate" style={{ color: "var(--primary)" }}>
+            <span className="font-bold text-sm sm:text-base lg:text-lg leading-tight truncate max-w-[150px] sm:max-w-none" style={{ color: "var(--primary)" }}>
               {ngoName}
             </span>
           </Link>
@@ -77,7 +77,7 @@ export const Navbar = () => {
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <LanguageToggle />
             <Link
               href="/donate"
@@ -108,7 +108,7 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="xl:hidden border-t border-green-100 bg-white shadow-lg">
+        <div className="xl:hidden border-t border-green-100 bg-white shadow-lg absolute w-full left-0">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -127,9 +127,17 @@ export const Navbar = () => {
               );
             })}
             <Link
+              href="/donate"
+              onClick={() => setMobileOpen(false)}
+              className="block px-4 py-3 mt-4 rounded-full text-sm font-semibold text-white text-center flex items-center justify-center gap-2 shadow-md"
+              style={{ backgroundColor: "var(--accent, #e11d48)" }}
+            >
+              <Heart className="w-4 h-4" /> {t("common.donate")}
+            </Link>
+            <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="block px-4 py-3 mt-2 rounded-full text-sm font-semibold text-white text-center"
+              className="block px-4 py-3 mt-2 rounded-full text-sm font-semibold text-white text-center shadow-md"
               style={{ backgroundColor: "var(--primary)" }}
             >
               {t("nav.contact")}

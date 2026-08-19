@@ -78,6 +78,34 @@ export const Footer = () => {
                   </svg>
                 </a>
               )}
+              {/* YouTube */}
+              {settings?.youtubeUrl && (
+                <a
+                  href={settings.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition hover:scale-110"
+                  title="YouTube"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.547 12 3.547 12 3.547s-7.505 0-9.377.503a3.015 3.015 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.503 9.376.503 9.376.503s7.505 0 9.377-.503a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+              )}
+              {/* WhatsApp */}
+              {settings?.contactPhone && (
+                <a
+                  href={`https://wa.me/${settings.contactPhone.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center hover:bg-green-400 transition hover:scale-110 shadow-lg"
+                  title="WhatsApp"
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.13.552 4.143 1.543 5.918L0 24l6.23-1.614A11.967 11.967 0 0 0 12.031 24c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm6.491 17.202c-.26.732-1.517 1.4-2.102 1.472-.533.064-1.222.183-3.987-.962-3.351-1.385-5.526-4.806-5.69-5.025-.164-.22-1.357-1.803-1.357-3.439 0-1.637.848-2.443 1.15-2.756.3-.314.654-.393.873-.393.22 0 .438-.002.632.007.204.01.478-.078.747.57.27.649.92 2.247.999 2.405.08.157.133.342.025.557-.107.215-.164.351-.326.545-.163.193-.342.418-.49.57-.164.167-.336.353-.146.68.19.325.845 1.39 1.815 2.253 1.253 1.115 2.296 1.46 2.624 1.617.327.157.518.132.712-.088.194-.22 .836-.974 1.058-1.308.222-.335.443-.28.736-.17.294.11 1.854.873 2.17 1.031.316.157.527.235.603.366.077.131.077.76-.183 1.492z"/>
+                  </svg>
+                </a>
+              )}
             </div>
           </div>
 
