@@ -14,7 +14,15 @@ export async function GET() {
         password: hashedPassword,
       },
     });
-    return NextResponse.json({ success: true, message: "Admin seeded" });
+
+    const settingsCount = await prisma.settings.count();
+    if (settingsCount === 0) {
+      await prisma.settings.create({
+        data: {}
+      });
+    }
+
+    return NextResponse.json({ success: true, message: "Admin and Default Settings seeded" });
   } catch (error) {
     return NextResponse.json({ success: false, error: String(error) });
   }
