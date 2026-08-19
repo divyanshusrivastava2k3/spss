@@ -10,10 +10,10 @@ export const MobileSidebar = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-xl bg-white shadow-lg border border-green-200"
+        className="md:hidden p-2 rounded-xl bg-white shadow-sm border border-green-200 hover:bg-gray-50 transition mr-3"
         aria-label="Open sidebar"
       >
-        <svg className="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>

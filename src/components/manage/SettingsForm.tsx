@@ -70,14 +70,21 @@ export const SettingsForm = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleFileUpload = async (file: File | null, type: "logo" | "favicon") => {
+  const handleFileUpload = async (file: File | null, type: "logo" | "favicon" | "donationQrCodeUrl") => {
     if (!file) return;
     setUploading((prev) => ({ ...prev, [type]: true }));
     try {
       const form = new FormData();
       form.append("file", file);
       const res = await axios.post("/api/upload", form);
-      setFormData((prev) => ({ ...prev, [type === "logo" ? "logoUrl" : "faviconUrl"]: res.data.url }));
+      
+      const fieldMap: Record<string, string> = {
+        logo: "logoUrl",
+        favicon: "faviconUrl",
+        donationQrCodeUrl: "donationQrCodeUrl"
+      };
+      
+      setFormData((prev) => ({ ...prev, [fieldMap[type]]: res.data.url }));
     } catch {
       toast.error("Upload failed");
     } finally {

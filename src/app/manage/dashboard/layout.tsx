@@ -24,19 +24,19 @@ export default async function AdminDashboardLayout({
         <Sidebar />
       </div>
 
-      {/* Mobile sidebar toggle button */}
-      <MobileSidebar />
-
       {/* Main Content */}
-      <main className="md:pl-72 min-h-screen">
+      <main className="md:pl-72 min-h-screen flex flex-col">
         {/* Top Bar */}
-        <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-green-100 px-6 py-4 shadow-sm">
+        <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-green-100 px-4 sm:px-6 py-4 shadow-sm">
           <div className="max-w-full mx-auto flex items-center justify-between">
-            <div>
-              <p className="text-xs text-green-600 uppercase tracking-wider font-medium">
-                {session?.user?.name ? `Welcome, ${session.user.name}` : "Admin Dashboard"}
-              </p>
-              <h1 className="text-xl font-extrabold text-gray-900 mt-1">SPSS - RuralGro</h1>
+            <div className="flex items-center min-w-0">
+              <MobileSidebar />
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-xs text-green-600 uppercase tracking-wider font-medium truncate">
+                  {session?.user?.name ? `Welcome, ${session.user.name}` : "Admin Dashboard"}
+                </p>
+                <h1 className="text-base sm:text-xl font-extrabold text-gray-900 mt-0.5 sm:mt-1 truncate">SPSS - RuralGro</h1>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <a
