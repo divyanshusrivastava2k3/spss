@@ -22,6 +22,7 @@ const PageWrapper = forwardRef<HTMLDivElement, { pageNumber: number; className?:
           pageNumber={pageNumber}
           renderTextLayer={false}
           renderAnnotationLayer={false}
+          width={800}
           className="w-full h-full flex justify-center items-center [&>.react-pdf\_\_Page\_\_canvas]:!w-full [&>.react-pdf\_\_Page\_\_canvas]:!h-full [&>.react-pdf\_\_Page\_\_canvas]:!object-contain"
         />
       </div>
@@ -32,8 +33,30 @@ PageWrapper.displayName = "PageWrapper";
 
 export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
   const [numPages, setNumPages] = useState<number>();
+  const [bookSize, setBookSize] = useState({ width: 0, height: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
   const flipBookRef = useRef<any>(null);
   const FlipBook = HTMLFlipBook as any;
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const cw = entry.contentRect.width;
+        // Limit height to make it fit on screens without extreme scrolling
+        const maxH = window.innerWidth > 1024 ? 900 : window.innerWidth > 768 ? 700 : 500;
+        let w = cw;
+        let h = w * 1.414;
+        if (h > maxH) {
+          h = maxH;
+          w = h / 1.414;
+        }
+        setBookSize({ width: w, height: h });
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
@@ -60,27 +83,26 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           }
         >
           {numPages && (
-            <div className="relative pb-16 w-full mx-auto flex flex-col items-center">
+            <div className="relative pb-16 w-full mx-auto flex flex-col items-center" ref={containerRef}>
               
-              <div className="w-full h-[500px] md:h-[700px] lg:h-[950px] relative drop-shadow-2xl">
-                <FlipBook
-                  width={700}
-                  height={990}
-                  size="stretch"
-                  minWidth={250}
-                  maxWidth={1200}
-                  minHeight={353}
-                  maxHeight={1698}
-                  maxShadowOpacity={0.3}
-                  showCover={true}
-                  mobileScrollSupport={true}
-                  className="flipbook-wrapper"
-                  ref={flipBookRef}
-                >
-                  {pages.map((page) => (
-                    <PageWrapper key={page} pageNumber={page} className="border border-gray-200" />
-                  ))}
-                </FlipBook>
+              <div className="w-full relative drop-shadow-2xl flex justify-center items-center" style={{ height: bookSize.height > 0 ? bookSize.height : 500 }}>
+                {bookSize.width > 0 && (
+                  <FlipBook
+                    width={bookSize.width}
+                    height={bookSize.height}
+                    size="fixed"
+                    usePortrait={true}
+                    maxShadowOpacity={0.3}
+                    showCover={true}
+                    mobileScrollSupport={true}
+                    className="flipbook-wrapper"
+                    ref={flipBookRef}
+                  >
+                    {pages.map((page) => (
+                      <PageWrapper key={page} pageNumber={page} className="border border-gray-200" />
+                    ))}
+                  </FlipBook>
+                )}
               </div>
               
               <div className="absolute bottom-0 left-0 right-0 flex justify-center z-20">
