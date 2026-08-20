@@ -138,7 +138,7 @@ export default async function Home() {
                   </div>
                 )}
               </div>
-              <div className="absolute -bottom-8 -left-8 bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 flex items-center gap-6 z-20 animate-bounce-slow">
+              <div className="absolute -top-8 -left-4 md:-top-10 md:-left-12 bg-white rounded-3xl shadow-2xl p-6 md:p-8 border border-gray-100 flex items-center gap-4 md:gap-6 z-30 animate-bounce-slow">
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-[var(--primary-10)]">
                   <CheckCircle2 className="w-8 h-8 text-[var(--primary)]" />
                 </div>
