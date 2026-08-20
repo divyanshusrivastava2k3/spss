@@ -125,9 +125,21 @@ export default async function Home() {
                 ))}
               </ul>
 
-              <Link href="/about" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300" style={{ backgroundImage: heroGrad }}>
-                {t("Discover Our Journey", "हमारी यात्रा खोजें")} <ArrowRight className="w-5 h-5" />
-              </Link>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-8">
+                <Link href="/about" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300" style={{ backgroundImage: heroGrad }}>
+                  {t("Discover Our Journey", "हमारी यात्रा खोजें")} <ArrowRight className="w-5 h-5" />
+                </Link>
+                
+                <div className="bg-white rounded-2xl shadow-md p-4 pr-8 border border-gray-100 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[var(--primary-10)]">
+                    <CheckCircle2 className="w-6 h-6 text-[var(--primary)]" />
+                  </div>
+                  <div>
+                    <div className="text-xl font-black text-gray-900 tracking-tight">80G</div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-0.5">Tax Exempted</div>
+                  </div>
+                </div>
+              </div>
             </FadeIn>
             
             <FadeIn delay={0.2} className="relative w-full lg:col-span-7">
@@ -137,15 +149,6 @@ export default async function Home() {
                     <PdfFlipbook pdfUrl={homeContent.flipbookPdfUrl} />
                   </div>
                 )}
-              </div>
-              <div className="absolute -top-8 -left-4 md:-top-10 md:-left-12 bg-white rounded-3xl shadow-2xl p-6 md:p-8 border border-gray-100 flex items-center gap-4 md:gap-6 z-30 animate-bounce-slow">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-[var(--primary-10)]">
-                  <CheckCircle2 className="w-8 h-8 text-[var(--primary)]" />
-                </div>
-                <div>
-                  <p className="text-4xl font-extrabold text-gray-900">80G</p>
-                  <p className="text-gray-500 font-medium">{t("Tax Exempted", "कर-मुक्त")}</p>
-                </div>
               </div>
             </FadeIn>
           </div>

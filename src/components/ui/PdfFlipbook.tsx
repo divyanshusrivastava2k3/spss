@@ -43,15 +43,13 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
     const observer = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const cw = entry.contentRect.width;
-        // Limit height to make it fit on screens without extreme scrolling
-        const maxH = window.innerWidth > 1024 ? 900 : window.innerWidth > 768 ? 700 : 500;
-        let w = cw;
-        let h = w * 1.414;
-        if (h > maxH) {
-          h = maxH;
-          w = h / 1.414;
+        if (cw > 0) {
+          // Let the book expand to full width of container without artificial height limits
+          // The image used to take the full width, so we want the same behavior here.
+          let w = cw;
+          let h = w * 1.414;
+          setBookSize({ width: w, height: h });
         }
-        setBookSize({ width: w, height: h });
       }
     });
     observer.observe(containerRef.current);
