@@ -6,7 +6,7 @@ import { logger } from "@/lib/logger";
 import { createClient } from "@supabase/supabase-js";
 
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/x-icon", "application/pdf"];
-const MAX_UPLOAD_SIZE = parseInt(process.env.UPLOAD_MAX_SIZE || "20971520", 10); // increased max upload size to 20MB for PDFs
+const MAX_UPLOAD_SIZE = parseInt(process.env.UPLOAD_MAX_SIZE || "157286400", 10); // increased max upload size to 150MB
 
 // Initialize Supabase Client
 const supabaseUrl = process.env.SUPABASE_URL || "";
