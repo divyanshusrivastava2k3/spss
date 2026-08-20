@@ -63,7 +63,7 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
   const pages = numPages ? Array.from(new Array(numPages), (el, index) => index + 1) : [];
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-full mx-auto relative group">
+    <div className="flex flex-col items-center justify-center w-full max-w-full mx-auto relative group" ref={containerRef}>
       <div className="w-full relative z-10 flex justify-center items-center">
         <Document
           file={pdfUrl}
@@ -81,7 +81,7 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           }
         >
           {numPages && (
-            <div className="relative pb-16 w-full mx-auto flex flex-col items-center" ref={containerRef}>
+            <div className="relative pb-16 w-full mx-auto flex flex-col items-center">
               
               <div className="w-full relative drop-shadow-2xl flex justify-center items-center" style={{ height: bookSize.height > 0 ? bookSize.height : 500 }}>
                 {bookSize.width > 0 && (
