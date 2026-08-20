@@ -14,16 +14,15 @@ interface PdfFlipbookProps {
 }
 
 // Wrapper for pages because HTMLFlipBook requires standard DOM elements or forwarded refs
-const PageWrapper = forwardRef<HTMLDivElement, { pageNumber: number; width?: number; className?: string }>(
-  ({ pageNumber, width, className, ...props }, ref) => {
+const PageWrapper = forwardRef<HTMLDivElement, { pageNumber: number; className?: string }>(
+  ({ pageNumber, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={`bg-white shadow-sm overflow-hidden flex justify-center items-center ${className || ''}`} {...props}>
+      <div ref={ref} className={`bg-white flex justify-center items-center overflow-hidden ${className || ''}`} {...props}>
         <Page
           pageNumber={pageNumber}
           renderTextLayer={false}
           renderAnnotationLayer={false}
-          width={width}
-          className="object-contain"
+          className="w-full h-full flex justify-center items-center [&>.react-pdf\_\_Page\_\_canvas]:!w-full [&>.react-pdf\_\_Page\_\_canvas]:!h-full [&>.react-pdf\_\_Page\_\_canvas]:!object-contain"
         />
       </div>
     );
@@ -49,7 +48,7 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           file={pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={
-            <div className="flex flex-col items-center justify-center h-64 space-y-4">
+            <div className="flex flex-col items-center justify-center h-80 space-y-4">
               <div className="w-12 h-12 border-4 border-[var(--primary)] border-t-transparent rounded-full animate-spin"></div>
               <p className="text-[var(--primary)] font-medium animate-pulse">Loading interactive flipbook...</p>
             </div>
@@ -61,36 +60,40 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           }
         >
           {numPages && (
-            <div className="shadow-2xl rounded-lg overflow-hidden border border-gray-200 bg-[#f8f5ee] p-4 md:p-6 pb-12 w-full max-w-lg mx-auto">
-              <FlipBook
-                width={400}
-                height={566}
-                size="stretch"
-                minWidth={280}
-                maxWidth={600}
-                minHeight={400}
-                maxHeight={850}
-                maxShadowOpacity={0.3}
-                showCover={true}
-                mobileScrollSupport={true}
-                className="flipbook-wrapper mx-auto drop-shadow-2xl"
-                ref={flipBookRef}
-              >
-                {pages.map((page) => (
-                  <PageWrapper key={page} pageNumber={page} width={400} className="border border-gray-300" />
-                ))}
-              </FlipBook>
+            <div className="relative shadow-xl rounded-2xl overflow-hidden border border-gray-100 bg-gradient-to-b from-[#f8f5ee] to-[#f0ece1] p-4 md:p-8 pb-20 w-full max-w-2xl mx-auto flex flex-col items-center">
               
-              <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-                <div className="bg-white/90 backdrop-blur px-6 py-2 rounded-full shadow border border-gray-100 flex items-center gap-4 text-sm text-gray-600 font-medium">
+              <div className="w-full aspect-[1/1.4] max-w-[500px] relative drop-shadow-2xl">
+                <FlipBook
+                  width={400}
+                  height={560}
+                  size="stretch"
+                  minWidth={200}
+                  maxWidth={800}
+                  minHeight={280}
+                  maxHeight={1120}
+                  maxShadowOpacity={0.3}
+                  showCover={true}
+                  mobileScrollSupport={true}
+                  className="flipbook-wrapper"
+                  ref={flipBookRef}
+                >
+                  {pages.map((page) => (
+                    <PageWrapper key={page} pageNumber={page} className="border border-gray-200" />
+                  ))}
+                </FlipBook>
+              </div>
+              
+              <div className="absolute bottom-6 left-0 right-0 flex justify-center z-20">
+                <div className="bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full shadow-lg border border-gray-200 flex items-center gap-4 text-sm text-gray-700 font-medium">
                   <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
                     Swipe to flip
                   </span>
-                  <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                  <span className="w-1 h-1 rounded-full bg-gray-400"></span>
                   <span>{numPages} Pages</span>
                 </div>
               </div>
+
             </div>
           )}
         </Document>
