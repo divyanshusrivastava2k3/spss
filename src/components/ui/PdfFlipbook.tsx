@@ -60,17 +60,17 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           }
         >
           {numPages && (
-            <div className="relative pb-16 w-full max-w-2xl mx-auto flex flex-col items-center">
+            <div className="relative pb-16 w-full mx-auto flex flex-col items-center">
               
-              <div className="w-full aspect-[1/1.4] max-w-[500px] relative drop-shadow-2xl">
+              <div className="w-full relative drop-shadow-2xl aspect-[1/1.414] lg:aspect-[1.414/1]">
                 <FlipBook
                   width={400}
-                  height={560}
+                  height={566}
                   size="stretch"
                   minWidth={200}
-                  maxWidth={800}
-                  minHeight={280}
-                  maxHeight={1120}
+                  maxWidth={1200}
+                  minHeight={283}
+                  maxHeight={1698}
                   maxShadowOpacity={0.3}
                   showCover={true}
                   mobileScrollSupport={true}
