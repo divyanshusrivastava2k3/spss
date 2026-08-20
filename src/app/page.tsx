@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowRight, Users, GraduationCap, Heart, HandHeart, CheckCircle2 } from "lucide-react";
 import HeroSlider from "@/components/HeroSlider";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { PdfFlipbook } from "@/components/ui/PdfFlipbook";
 import "./globals.css";
 
 async function getData() {
@@ -130,16 +131,24 @@ export default async function Home() {
             </FadeIn>
             
             <FadeIn delay={0.2} className="relative">
-              <div className="rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition duration-500 z-10" />
-                {(homeContent?.aboutImage || defaultAboutImage) ? (
-                  <img 
-                    src={homeContent?.aboutImage || defaultAboutImage} 
-                    alt="About SPSS" 
-                    className="w-full h-auto object-cover hover:scale-105 transition duration-700 ease-out" 
-                  />
+              <div className="rounded-[2.5rem] overflow-hidden shadow-2xl relative group bg-transparent">
+                {homeContent?.flipbookPdfUrl ? (
+                  <div className="w-full h-auto min-h-[400px]">
+                    <PdfFlipbook pdfUrl={homeContent.flipbookPdfUrl} />
+                  </div>
                 ) : (
-                  <div className="w-full h-64 bg-gray-200" />
+                  <>
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition duration-500 z-10" />
+                    {(homeContent?.aboutImage || defaultAboutImage) ? (
+                      <img 
+                        src={homeContent?.aboutImage || defaultAboutImage} 
+                        alt="About SPSS" 
+                        className="w-full h-auto object-cover hover:scale-105 transition duration-700 ease-out" 
+                      />
+                    ) : (
+                      <div className="w-full h-64 bg-gray-200" />
+                    )}
+                  </>
                 )}
               </div>
               <div className="absolute -bottom-8 -left-8 bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 flex items-center gap-6 z-20 animate-bounce-slow">

@@ -5,8 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { logger } from "@/lib/logger";
 import { createClient } from "@supabase/supabase-js";
 
-const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/x-icon"];
-const MAX_UPLOAD_SIZE = parseInt(process.env.UPLOAD_MAX_SIZE || "5242880", 10);
+const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/x-icon", "application/pdf"];
+const MAX_UPLOAD_SIZE = parseInt(process.env.UPLOAD_MAX_SIZE || "20971520", 10); // increased max upload size to 20MB for PDFs
 
 // Initialize Supabase Client
 const supabaseUrl = process.env.SUPABASE_URL || "";
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
 
     if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       logger.warn(`Invalid file type upload attempt: ${file.type}`);
-      return NextResponse.json({ error: "Invalid file type. Only JPEG, PNG, WEBP, and ICO are allowed." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid file type. Only JPEG, PNG, WEBP, ICO, and PDF are allowed." }, { status: 400 });
     }
 
     if (file.size > MAX_UPLOAD_SIZE) {

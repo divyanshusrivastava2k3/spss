@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { X } from "lucide-react";
 import { ImageUploader } from "@/components/manage/ImageUploader";
+import { PdfUploader } from "@/components/manage/PdfUploader";
 
 export default function AdminHomeContentPage() {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ export default function AdminHomeContentPage() {
     ctaSecondaryText: "Our Programs",
     ctaSecondaryTextHi: "हमारे कार्यक्रम",
     aboutImage: "",
+    flipbookPdfUrl: "",
     ctaCard1Title: "Support Our Work",
     ctaCard1TitleHi: "हमारे काम का समर्थन करें",
     ctaCard1Desc: "Your donation empowers lives.",
@@ -242,6 +244,10 @@ export default function AdminHomeContentPage() {
               <div>
                 <label className={labelCls}>About Section Image</label>
                 <ImageUploader currentUrl={form.aboutImage || ""} onUpload={(url) => setForm((prev) => ({ ...prev, aboutImage: url }))} label="About Image" />
+              </div>
+              <div>
+                <label className={labelCls}>About Section PDF (Flipbook)</label>
+                <PdfUploader currentUrl={form.flipbookPdfUrl || ""} onUpload={(url) => setForm((prev) => ({ ...prev, flipbookPdfUrl: url }))} label="Upload PDF Flipbook" />
               </div>
               <div>
                 <label className={labelCls}>CTA Background Image</label>

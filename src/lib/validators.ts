@@ -157,6 +157,7 @@ export const HomeContentSchema = z.object({
   ctaSecondaryText: z.string(),
   ctaSecondaryTextHi: z.string(),
   aboutImage: z.string().optional().nullable(),
+  flipbookPdfUrl: z.string().url().optional().nullable().or(z.literal("")),
   ctaCard1Title: z.string(),
   ctaCard1TitleHi: z.string(),
   ctaCard1Desc: z.string(),

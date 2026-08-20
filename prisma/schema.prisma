@@ -184,6 +184,7 @@ model HomePageContent {
   ctaSecondaryText String @default("Our Programs")
   ctaSecondaryTextHi String @default("हमारे कार्यक्रम")
   aboutImage      String?
+  flipbookPdfUrl  String?
   ctaCard1Title   String @default("Support Our Work")
   ctaCard1TitleHi String @default("हमारे काम का समर्थन करें")
   ctaCard1Desc    String @default("Your donation empowers lives.")
