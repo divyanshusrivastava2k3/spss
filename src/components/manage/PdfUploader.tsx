@@ -20,14 +20,32 @@ export const PdfUploader = ({ currentUrl, onUpload, label = "PDF File" }: PdfUpl
     if (!file) return;
     setUploading(true);
     try {
-      const form = new FormData();
-      form.append("file", file);
-      const res = await axios.post("/api/upload", form);
-      onUpload(res.data.url);
+      // 1. Get signed URL and token from our server
+      const res = await axios.post("/api/upload/signed-url", {
+        filename: file.name,
+        contentType: file.type,
+      });
+
+      const { token, path, publicUrl, supabaseUrl } = res.data;
+
+      // 2. Upload directly to Supabase Storage bypassing Vercel limits
+      const { createClient } = await import("@supabase/supabase-js");
+      // Use a dummy key since we authenticate using the token
+      const supabase = createClient(supabaseUrl, "dummy-key-not-used");
+      
+      const { error: uploadError } = await supabase.storage
+        .from("uploads")
+        .uploadToSignedUrl(path, token, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      onUpload(publicUrl);
       toast.success("PDF uploaded successfully!");
     } catch (error: any) {
       console.error("Upload failed:", error);
-      const msg = error.response?.data?.error || "PDF upload failed. Try again.";
+      const msg = error.response?.data?.error || error.message || "PDF upload failed. Try again.";
       toast.error(msg);
     } finally {
       setUploading(false);
