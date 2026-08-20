@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, forwardRef } from "react";
+import { useState, useRef, forwardRef, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
 import 'react-pdf/dist/Page/AnnotationLayer.css';
