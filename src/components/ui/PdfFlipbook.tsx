@@ -60,7 +60,7 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
           }
         >
           {numPages && (
-            <div className="relative shadow-xl rounded-2xl overflow-hidden border border-gray-100 bg-gradient-to-b from-[#f8f5ee] to-[#f0ece1] p-4 md:p-8 pb-20 w-full max-w-2xl mx-auto flex flex-col items-center">
+            <div className="relative pb-16 w-full max-w-2xl mx-auto flex flex-col items-center">
               
               <div className="w-full aspect-[1/1.4] max-w-[500px] relative drop-shadow-2xl">
                 <FlipBook
@@ -83,7 +83,7 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
                 </FlipBook>
               </div>
               
-              <div className="absolute bottom-6 left-0 right-0 flex justify-center z-20">
+              <div className="absolute bottom-0 left-0 right-0 flex justify-center z-20">
                 <div className="bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full shadow-lg border border-gray-200 flex items-center gap-4 text-sm text-gray-700 font-medium">
                   <span className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>

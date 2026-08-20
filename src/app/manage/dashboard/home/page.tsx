@@ -242,10 +242,6 @@ export default function AdminHomeContentPage() {
                 <input type="text" name="ctaSecondaryTextHi" value={form.ctaSecondaryTextHi} onChange={handleChange} className={inputCls} />
               </div>
               <div>
-                <label className={labelCls}>About Section Image</label>
-                <ImageUploader currentUrl={form.aboutImage || ""} onUpload={(url) => setForm((prev) => ({ ...prev, aboutImage: url }))} label="About Image" />
-              </div>
-              <div>
                 <label className={labelCls}>About Section PDF (Flipbook)</label>
                 <PdfUploader currentUrl={form.flipbookPdfUrl || ""} onUpload={(url) => setForm((prev) => ({ ...prev, flipbookPdfUrl: url }))} label="Upload PDF Flipbook" />
               </div>
