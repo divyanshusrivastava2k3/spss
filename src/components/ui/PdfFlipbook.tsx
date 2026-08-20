@@ -64,12 +64,12 @@ export function PdfFlipbook({ pdfUrl }: PdfFlipbookProps) {
               
               <div className="w-full relative drop-shadow-2xl aspect-[1/1.414]">
                 <FlipBook
-                  width={400}
-                  height={566}
+                  width={600}
+                  height={848}
                   size="stretch"
-                  minWidth={200}
+                  minWidth={250}
                   maxWidth={1200}
-                  minHeight={283}
+                  minHeight={353}
                   maxHeight={1698}
                   maxShadowOpacity={0.3}
                   showCover={true}

@@ -130,8 +130,8 @@ export default async function Home() {
               </Link>
             </FadeIn>
             
-            <FadeIn delay={0.2} className="relative">
-              <div className="relative group bg-transparent">
+            <FadeIn delay={0.2} className="relative w-full">
+              <div className="relative group bg-transparent w-full">
                 {homeContent?.flipbookPdfUrl && (
                   <div className="w-full h-auto min-h-[400px]">
                     <PdfFlipbook pdfUrl={homeContent.flipbookPdfUrl} />
