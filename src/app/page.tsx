@@ -99,8 +99,8 @@ export default async function Home() {
       {/* ABOUT */}
       <section className="py-24 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <FadeIn>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <FadeIn className="lg:col-span-5">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary-10)] text-[var(--primary)] text-sm font-bold uppercase tracking-wider mb-6">
                 <Heart className="w-4 h-4" />
                 {t("About Us", "हमारे बारे में")}
@@ -130,7 +130,7 @@ export default async function Home() {
               </Link>
             </FadeIn>
             
-            <FadeIn delay={0.2} className="relative w-full">
+            <FadeIn delay={0.2} className="relative w-full lg:col-span-7">
               <div className="relative group bg-transparent w-full">
                 {homeContent?.flipbookPdfUrl && (
                   <div className="w-full h-auto min-h-[400px]">
